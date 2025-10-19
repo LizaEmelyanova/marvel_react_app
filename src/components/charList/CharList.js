@@ -26,6 +26,7 @@ class CharList extends Component {
   };
 
   getCharList = () => {
+    this.setState({ loading: false });
     this.marvelService
       .getAllCharacters()
       .then(this.onCharsLoaded)
@@ -45,7 +46,11 @@ class CharList extends Component {
           }
 
           return (
-            <li key={char.name} className="char__item">
+            <li
+              key={char.id}
+              className="char__item"
+              onClick={() => this.props.onCharSelected(char.id)}
+            >
               <img src={char.thumbnail} alt={char.name} style={imgStyle} />
               <div className="char__name">{char.name}</div>
             </li>

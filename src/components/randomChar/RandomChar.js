@@ -15,12 +15,7 @@ class RandomChar extends Component {
 
   componentDidMount() {
     this.updateChar();
-    // this.timerId = setInterval(this.updateChar, 3000);
   }
-
-  // componentWillUnmount() {
-  //   clearInterval(this.timerId);
-  // }
 
   marvelService = new MarvelService();
 
@@ -86,7 +81,7 @@ const View = ({ char }) => {
     <div className="randomchar__block">
       <img
         src={thumbnail}
-        style={{ imgStyle }}
+        style={ imgStyle }
         alt="Random character"
         className="randomchar__img"
       />
