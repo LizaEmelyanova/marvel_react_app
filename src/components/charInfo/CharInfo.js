@@ -50,8 +50,8 @@ class CharInfo extends Component {
 
   render() {
     const { char, loading, error } = this.state;
-    
-    const skeleton =  char || loading || error ? null : <Skeleton />;
+
+    const skeleton = char || loading || error ? null : <Skeleton />;
     const errorMessage = error ? <ErrorMessage /> : null;
     const spinner = loading ? <Spinner /> : null;
     const content = !(error || loading || !char) ? <View char={char} /> : null;
@@ -98,13 +98,14 @@ const View = ({ char }) => {
       {comics && comics.length > 0 ? (
         <ul className="char__comics-list">
           {comics.slice(0, 10).map((item, i) => (
-            <li key={i} className="char__comics-item">{item.name}</li>
+            <li key={i} className="char__comics-item">
+              {item.name}
+            </li>
           ))}
         </ul>
       ) : (
         <div>There is no commics with this charecter</div>
       )}
-      
     </>
   );
 };
