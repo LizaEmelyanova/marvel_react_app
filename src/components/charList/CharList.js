@@ -1,8 +1,11 @@
-import "./charList.scss";
 import { Component } from "react";
+import PropTypes from "prop-types";
+
 import MarvelService from "../../services/MarvelService";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 import Spinner from "../spinner/Spinner";
+
+import "./charList.scss";
 
 class CharList extends Component {
   state = {
@@ -102,6 +105,10 @@ class CharList extends Component {
       </div>
     );
   }
+}
+
+CharList.propTypes = {
+  onCharSelected: PropTypes.func
 }
 
 export default CharList;
