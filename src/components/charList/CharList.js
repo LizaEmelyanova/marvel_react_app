@@ -54,10 +54,22 @@ class CharList extends Component {
     this.setState({ loading: false, error: true });
   };
 
+  itemRefs = [];
+
+  setRef = (ref) => {
+    this.itemRefs.push(ref);
+  }
+
+  focusOnItem = (id) => {
+    this.itemRefs.forEach(item => item.classList.remove('char__item_selected'));
+    this.itemRefs[id].classList.add('char__item_selected');
+    this.itemRefs[id].focus();
+  }
+
   renderItem = (charList) => {
     return (
       <ul className="char__grid">
-        {charList.map((char) => {
+        {charList.map((char, i) => {
           let imgStyle = { objectFit: "cover" };
           if (
             char.thumbnail ===
@@ -68,9 +80,20 @@ class CharList extends Component {
 
           return (
             <li
+              tabIndex={0}
+              ref={this.setRef}
               key={char.id}
               className="char__item"
-              onClick={() => this.props.onCharSelected(char.id)}
+              onClick={() => {
+                this.props.onCharSelected(char.id);
+                this.focusOnItem(i)
+              }}
+              onKeyDown={(e) => {
+                if (e.key === ' ' || e.key === 'Enter') {
+                  this.props.onCharSelected(char.id);
+                  this.focusOnItem(i);
+                }
+              }}
             >
               <img src={char.thumbnail} alt={char.name} style={imgStyle} />
               <div className="char__name">{char.name}</div>
@@ -108,7 +131,7 @@ class CharList extends Component {
 }
 
 CharList.propTypes = {
-  onCharSelected: PropTypes.func
+  onCharSelected: PropTypes.func.isRequired
 }
 
 export default CharList;
